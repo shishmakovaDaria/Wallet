@@ -148,6 +148,7 @@
 				DEVELOPMENT_TEAM = 4VR9A25JG8;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Wallet/Resources/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Wallet;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -181,6 +182,7 @@
 				DEVELOPMENT_TEAM = 4VR9A25JG8;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Wallet/Resources/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Wallet;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;

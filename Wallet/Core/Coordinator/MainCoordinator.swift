@@ -42,9 +42,9 @@ final class MainCoordinator: BaseCoordinator {
         let homeViewModel = HomeViewModel()
         let homeViewController = HomeViewController(viewModel: homeViewModel)
         
-        let statisticsViewController = UIViewController.coloredController(.blue)
-        let walletsViewController = UIViewController.coloredController(.green)
-        let reportViewController = UIViewController.coloredController(.yellow)
+        let statisticsViewController = UIViewController.coloredController(.cyan)
+        let walletsViewController = UIViewController.coloredController(.purple)
+        let reportViewController = UIViewController.coloredController(.gray)
         let profileViewController = UIViewController.coloredController(.red)
         
         let tabbar = MainTabBarController(

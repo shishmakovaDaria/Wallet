@@ -29,7 +29,8 @@ final class MainCoordinator: BaseCoordinator {
     }
     
     private func runLoginScreen() {
-        let loginViewController = LoginViewController()
+        let loginViewModel = LoginViewModel()
+        let loginViewController = LoginViewController(viewModel: loginViewModel)
         
         router.setRootController(loginViewController)
     }

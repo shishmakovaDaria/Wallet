@@ -23,7 +23,7 @@ final class LoginViewController: UIViewController {
         configuration.baseBackgroundColor = .walletBlack
         configuration.baseForegroundColor = .white
         var container = AttributeContainer()
-        container.font = .system(size: 15.0, weight: .medium)
+        container.font = UIFont.poppinsSemiBold(ofSize: 15.0)
         configuration.attributedTitle = AttributedString(LocalizableStrings.login, attributes: container)
         
         let loginButton = UIButton(configuration: configuration, primaryAction: nil)

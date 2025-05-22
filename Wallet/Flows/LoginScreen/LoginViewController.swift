@@ -9,11 +9,17 @@ import UIKit
 import SnapKit
 
 final class LoginViewController: UIViewController {
-
+    
+    // MARK: - UI
+    
+    // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .red
-        
-        
+        setupView()
+    }
+    
+    // MARK: - Setup UI
+    private func setupView() {
+        view.backgroundColor = .walletGray
     }
 }

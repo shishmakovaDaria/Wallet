@@ -24,7 +24,7 @@ final class MainCoordinator: BaseCoordinator {
     
     // MARK: - Private functions
     private func performFlow() {
-        UserDefaultsHelper.userIsLoggedIn ? runHomeScreen() : runLoginScreen()
+        UserDefaultsHelper.userIsLoggedIn ? runMainScreen() : runLoginScreen()
     }
     
     private func runLoginScreen() {
@@ -32,17 +32,31 @@ final class MainCoordinator: BaseCoordinator {
         let loginViewController = LoginViewController(viewModel: loginViewModel)
         
         loginViewModel.onHomeScreen = { [weak self] in
-            self?.runHomeScreen()
+            self?.runMainScreen()
         }
         
         router.setRootController(loginViewController)
     }
     
-    private func runHomeScreen() {
+    private func runMainScreen() {
         let homeViewModel = HomeViewModel()
         let homeViewController = HomeViewController(viewModel: homeViewModel)
         
-        router.setRootController(homeViewController)
+        let statisticsViewController = UIViewController.coloredController(.blue)
+        let walletsViewController = UIViewController.coloredController(.green)
+        let reportViewController = UIViewController.coloredController(.yellow)
+        let profileViewController = UIViewController.coloredController(.red)
+        
+        let tabbar = MainTabBarController(
+            [
+                homeViewController,
+                statisticsViewController,
+                walletsViewController,
+                reportViewController,
+                profileViewController
+            ]
+        )
+        router.setRootController(tabbar)
     }
 }
 

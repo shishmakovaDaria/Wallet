@@ -31,4 +31,10 @@ extension UIViewController {
         alertController.addAction(cancelAction)
         present(alertController, animated: true)
     }
+    
+    static func coloredController(_ color: UIColor) -> UIViewController {
+        let controller = UIViewController()
+        controller.view.backgroundColor = color
+        return controller
+    }
 }

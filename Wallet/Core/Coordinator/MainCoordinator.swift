@@ -24,8 +24,7 @@ final class MainCoordinator: BaseCoordinator {
     
     // MARK: - Private functions
     private func performFlow() {
-        //todo проверка через дефолтс
-        runLoginScreen()
+        UserDefaultsHelper.userIsLoggedIn ? runHomeScreen() : runLoginScreen()
     }
     
     private func runLoginScreen() {

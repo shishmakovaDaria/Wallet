@@ -44,7 +44,7 @@ final class LoginViewModel {
     func loginTapped() {
         if username == "1234" && password == "1234" {
             onHomeScreen?()
-            //todo save to userDefaults
+            UserDefaultsHelper.userIsLoggedIn = true
         } else {
             errorSubject.send()
         }

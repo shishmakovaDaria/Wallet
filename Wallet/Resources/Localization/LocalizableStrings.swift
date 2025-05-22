@@ -11,4 +11,6 @@ struct LocalizableStrings {
     
     // MARK: - login screen
     static let login = NSLocalizedString("login", comment: "Login button title")
+    static let username = NSLocalizedString("username", comment: "Username text field placeholder")
+    static let password = NSLocalizedString("password", comment: "Password text field placeholder")
 }

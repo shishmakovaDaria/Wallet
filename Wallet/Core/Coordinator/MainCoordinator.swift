@@ -24,7 +24,7 @@ final class MainCoordinator: BaseCoordinator {
     
     // MARK: - Private functions
     private func performFlow() {
-        //todo
+        //todo проверка через дефолтс
         runLoginScreen()
     }
     
@@ -32,11 +32,17 @@ final class MainCoordinator: BaseCoordinator {
         let loginViewModel = LoginViewModel()
         let loginViewController = LoginViewController(viewModel: loginViewModel)
         
+        loginViewModel.onHomeScreen = { [weak self] in
+            self?.runHomeScreen()
+        }
+        
         router.setRootController(loginViewController)
     }
     
     private func runHomeScreen() {
+        let homeViewController = ViewController()
         
+        router.setRootController(homeViewController)
     }
 }
 

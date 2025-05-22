@@ -18,7 +18,7 @@ final class Router {
     }
     
     // MARK: - Public methods
-    func setRootController(_ controller: UIViewController, hideBar: Bool = false, animated: Bool = false) {
+    func setRootController(_ controller: UIViewController, hideBar: Bool = true, animated: Bool = false) {
         rootController?.setViewControllers([controller], animated: animated)
         rootController?.isNavigationBarHidden = hideBar
         rootController?.modalPresentationStyle = .fullScreen

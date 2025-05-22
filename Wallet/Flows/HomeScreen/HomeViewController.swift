@@ -12,6 +12,59 @@ import Combine
 final class HomeViewController: UIViewController {
     
     // MARK: - UI
+    private lazy var homeLabel: UILabel = {
+        let homeLabel = UILabel()
+        homeLabel.text = LocalizableStrings.home
+        homeLabel.textColor = .white
+        homeLabel.textAlignment = .left
+        homeLabel.font = UIFont.poppinsSemiBold(ofSize: 32.0)
+        return homeLabel
+    }()
+    
+    private lazy var menuButton: UIButton = {
+        var configuration = UIButton.Configuration.filled()
+        configuration.cornerStyle = .capsule
+        configuration.baseBackgroundColor = .white.withAlphaComponent(0.8)
+        configuration.image = UIImage.dots
+        configuration.imagePlacement = .all
+        configuration.contentInsets = .init(
+            top: 12.0,
+            leading: 12.0,
+            bottom: 12.0,
+            trailing: 12.0
+        )
+        
+        let menuButton = UIButton(configuration: configuration, primaryAction: nil)
+        menuButton.isUserInteractionEnabled = true
+        let menu = createMenu()
+        menuButton.menu = menu
+        menuButton.showsMenuAsPrimaryAction = true
+        return menuButton
+    }()
+    
+    private lazy var affiliateLabel: UILabel = {
+        let affiliateLabel = UILabel()
+        affiliateLabel.text = LocalizableStrings.affiliateProgram
+        affiliateLabel.textColor = .white
+        affiliateLabel.textAlignment = .left
+        affiliateLabel.font = UIFont.poppinsMedium(ofSize: 20.0)
+        return affiliateLabel
+    }()
+    
+    private lazy var learnButton: UIButton = {
+        var configuration = UIButton.Configuration.filled()
+        configuration.cornerStyle = .capsule
+        configuration.baseBackgroundColor = .white
+        configuration.baseForegroundColor = .tabbarBlack
+        var container = AttributeContainer()
+        container.font = UIFont.poppinsSemiBold(ofSize: 14.0)
+        configuration.attributedTitle = AttributedString(LocalizableStrings.learnMore, attributes: container)
+        
+        let learnButton = UIButton(configuration: configuration, primaryAction: nil)
+        return learnButton
+    }()
+    
+    private lazy var illustration = UIImageView(image: .illustration)
     
     // MARK: - Properties
     private let viewModel: HomeViewModel
@@ -34,5 +87,59 @@ final class HomeViewController: UIViewController {
     // MARK: - Setup UI
     private func setupView() {
         view.backgroundColor = .walletPink
+        
+        [homeLabel, menuButton, affiliateLabel, learnButton, illustration].forEach {
+            view.addSubview($0)
+        }
+        
+        homeLabel.snp.makeConstraints { make in
+            make.top.equalTo(view.safeAreaLayoutGuide).offset(5.0)
+            make.leading.equalTo(25.0)
+        }
+        
+        menuButton.snp.makeConstraints { make in
+            make.centerY.equalTo(homeLabel)
+            make.trailing.equalTo(-25.0)
+            make.height.width.equalTo(48.0)
+        }
+        
+        affiliateLabel.snp.makeConstraints { make in
+            make.leading.equalTo(homeLabel)
+            make.top.equalTo(homeLabel.snp.bottom).offset(46.0)
+        }
+        
+        learnButton.snp.makeConstraints { make in
+            make.leading.equalTo(homeLabel)
+            make.top.equalTo(affiliateLabel.snp.bottom).offset(12.0)
+            make.height.equalTo(35.0)
+            make.width.equalTo(127.0)
+        }
+        
+        illustration.snp.makeConstraints { make in
+            make.top.equalTo(menuButton.snp.bottom).offset(21.0)
+            make.trailing.equalToSuperview()
+        }
+    }
+    
+    private func createMenu() -> UIMenu {
+        let menu = UIMenu(
+            title: "",
+            options: .displayInline,
+            children: [
+                UIAction(
+                    title: LocalizableStrings.refresh,
+                    image: UIImage(resource: .rocket)
+                ) { [weak self] _ in
+                    //todo
+                },
+                UIAction(
+                    title: LocalizableStrings.logout,
+                    image: UIImage(resource: .trash)
+                ) { [weak self] _ in
+                    self?.viewModel.logoutUser()
+                }
+            ]
+        )
+        return menu
     }
 }

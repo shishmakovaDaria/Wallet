@@ -127,7 +127,7 @@ final class LoginViewController: UIViewController {
         
         logoImageView.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview().inset(44.0)
-            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(13.0)
+            make.top.equalTo(view.safeAreaLayoutGuide).offset(13.0)
         }
         
         loginButton.snp.makeConstraints { make in

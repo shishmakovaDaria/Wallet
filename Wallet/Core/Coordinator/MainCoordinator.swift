@@ -42,6 +42,10 @@ final class MainCoordinator: BaseCoordinator {
         let homeViewModel = HomeViewModel()
         let homeViewController = HomeViewController(viewModel: homeViewModel)
         
+        homeViewModel.onLoginScreen = { [weak self] in
+            self?.runLoginScreen()
+        }
+        
         let statisticsViewController = UIViewController.coloredController(.cyan)
         let walletsViewController = UIViewController.coloredController(.purple)
         let reportViewController = UIViewController.coloredController(.gray)

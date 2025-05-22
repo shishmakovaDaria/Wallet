@@ -19,4 +19,11 @@ struct LocalizableStrings {
     static let incorrectName = NSLocalizedString("incorrectName", comment: "Incorrect username alert message")
     static let repeatMessage = NSLocalizedString("repeatMessage", comment: "Repeat alert button")
     static let cancel = NSLocalizedString("cancel", comment: "Cancel alert button")
+    
+    // MARK: - home screen
+    static let home = NSLocalizedString("home", comment: "Home screen title")
+    static let affiliateProgram = NSLocalizedString("affiliateProgram", comment: "Affiliate program label")
+    static let learnMore = NSLocalizedString("learnMore", comment: "Learn more button title")
+    static let refresh = NSLocalizedString("refresh", comment: "Refresh menu title")
+    static let logout = NSLocalizedString("logout", comment: "Logout menu title")
 }

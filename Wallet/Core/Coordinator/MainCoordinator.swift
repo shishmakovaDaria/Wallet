@@ -39,7 +39,8 @@ final class MainCoordinator: BaseCoordinator {
     }
     
     private func runHomeScreen() {
-        let homeViewController = ViewController()
+        let homeViewModel = HomeViewModel()
+        let homeViewController = HomeViewController(viewModel: homeViewModel)
         
         router.setRootController(homeViewController)
     }

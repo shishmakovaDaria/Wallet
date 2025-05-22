@@ -90,6 +90,16 @@ final class LoginViewController: UIViewController {
             }
             .store(in: &bag)
         
+        viewModel.errorSubject
+            .sink { [weak self] in
+                self?.showAlert(title: LocalizableStrings.error, with: LocalizableStrings.incorrectName) {
+                    self?.viewModel.clearTextFields()
+                    self?.usernameTextField.clearTextField()
+                    self?.passwordTextField.clearTextField()
+                }
+            }
+            .store(in: &bag)
+        
         usernameTextField.textFieldDidChanged
             .sink { [weak self] name in
                 self?.viewModel.usernameChanged(name)

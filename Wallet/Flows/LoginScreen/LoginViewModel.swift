@@ -15,6 +15,7 @@ final class LoginViewModel {
     
     // MARK: - Publishers
     let loginButtonIsEnabled = CurrentValueSubject<Bool, Never>(false)
+    let errorSubject = PassthroughSubject<Void, Never>()
     
     // MARK: - Private properties
     private var username = ""
@@ -33,13 +34,19 @@ final class LoginViewModel {
         loginButtonIsEnabled.send(username != "" && password != "")
     }
     
+    func clearTextFields() {
+        username = ""
+        password = ""
+        
+        loginButtonIsEnabled.send(false)
+    }
+    
     func loginTapped() {
         if username == "1234" && password == "1234" {
             onHomeScreen?()
             //todo save to userDefaults
         } else {
-            //todo
-            //alert
+            errorSubject.send()
         }
     }
 }

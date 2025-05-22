@@ -44,6 +44,11 @@ final class LoginTextFieldView: UIView {
         }
     }
     
+    // MARK: - Public methods
+    func clearTextField() {
+        textField.text = ""
+    }
+    
     // MARK: - Setup UI
     private func setupView() {
         backgroundColor = .white.withAlphaComponent(0.8)

@@ -11,6 +11,25 @@ import SnapKit
 final class LoginViewController: UIViewController {
     
     // MARK: - UI
+    private lazy var logoImageView: UIImageView = {
+        let logoImageView = UIImageView(image: .logo)
+        logoImageView.contentMode = .scaleAspectFit
+        return logoImageView
+    }()
+    
+    private lazy var loginButton: UIButton = {
+        var configuration = UIButton.Configuration.filled()
+        configuration.cornerStyle = .capsule
+        configuration.baseBackgroundColor = .walletBlack
+        configuration.baseForegroundColor = .white
+        var container = AttributeContainer()
+        container.font = .system(size: 15.0, weight: .medium)
+        configuration.attributedTitle = AttributedString(LocalizableStrings.login, attributes: container)
+        
+        let loginButton = UIButton(configuration: configuration, primaryAction: nil)
+        loginButton.addTarget(self, action: #selector(loginTapped), for: .touchUpInside)
+        return loginButton
+    }()
     
     // MARK: - Life Cycle
     override func viewDidLoad() {
@@ -21,5 +40,25 @@ final class LoginViewController: UIViewController {
     // MARK: - Setup UI
     private func setupView() {
         view.backgroundColor = .walletGray
+        
+        [logoImageView, loginButton].forEach {
+            view.addSubview($0)
+        }
+        
+        logoImageView.snp.makeConstraints { make in
+            make.leading.trailing.equalToSuperview().inset(44.0)
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(13.0)
+        }
+        
+        loginButton.snp.makeConstraints { make in
+            make.height.equalTo(55.0)
+            make.leading.trailing.equalToSuperview().inset(25.0)
+            make.bottom.equalTo(-133.0)
+        }
+    }
+    
+    // MARK: - Actions
+    @objc private func loginTapped() {
+        //todo
     }
 }

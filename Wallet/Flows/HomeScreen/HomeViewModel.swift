@@ -14,12 +14,16 @@ final class HomeViewModel {
     var onLoginScreen: (() -> Void)?
     
     // MARK: - Publishers
-    let currenciesSubject = CurrentValueSubject<[CryptoCurrency], Never>([])
+    let sortedCurrenciesSubject = CurrentValueSubject<[CryptoCurrency], Never>([])
     let isLoading = PassthroughSubject<Bool, Never>()
     let errorSubject = PassthroughSubject<String, Never>()
+    var selectedSortOption = CurrentValueSubject<SortOption, Never>(.none)
     
     // MARK: - Services
     private let currencyService: CryptoCurrencyServiceProtocol
+    
+    // MARK: - Private properties
+    private var currencies: [CryptoCurrency] = []
     
     // MARK: - Life Cycle
     init(currencyService: CryptoCurrencyServiceProtocol = CryptoCurrencyService()) {
@@ -36,7 +40,8 @@ final class HomeViewModel {
             
             do {
                 let currencies = try await currencyService.getCryptoCurrencies()
-                self.currenciesSubject.value = currencies
+                self.currencies = currencies
+                sortHotels(by: selectedSortOption.value)
             } catch {
                 let message: String
 
@@ -61,5 +66,18 @@ final class HomeViewModel {
     func logoutUser() {
         UserDefaultsHelper.userIsLoggedIn = false
         onLoginScreen?()
+    }
+    
+    func sortHotels(by sortOption: SortOption) {
+        selectedSortOption.value = sortOption
+        
+        switch sortOption {
+        case .none:
+            sortedCurrenciesSubject.value = currencies
+        case .priceIncrease:
+            sortedCurrenciesSubject.value = currencies.sorted { $0.marketData.priceUsd ?? 0 < $1.marketData.priceUsd ?? 0 }
+        case .priceDecrease:
+            sortedCurrenciesSubject.value = currencies.sorted { $0.marketData.priceUsd ?? 0 > $1.marketData.priceUsd ?? 0 }
+        }
     }
 }

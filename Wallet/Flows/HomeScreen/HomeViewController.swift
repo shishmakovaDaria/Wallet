@@ -26,7 +26,6 @@ final class HomeViewController: UIViewController {
         configuration.cornerStyle = .capsule
         configuration.baseBackgroundColor = .white.withAlphaComponent(0.8)
         configuration.image = UIImage.dots
-        configuration.imagePlacement = .all
         configuration.contentInsets = .init(
             top: 12.0,
             leading: 12.0,
@@ -35,7 +34,6 @@ final class HomeViewController: UIViewController {
         )
         
         let menuButton = UIButton(configuration: configuration, primaryAction: nil)
-        menuButton.isUserInteractionEnabled = true
         let menu = createMenu()
         menuButton.menu = menu
         menuButton.showsMenuAsPrimaryAction = true
@@ -102,6 +100,17 @@ final class HomeViewController: UIViewController {
         return activityIndicator
     }()
     
+    private lazy var sortButton: UIButton = {
+        var configuration = UIButton.Configuration.plain()
+        configuration.image = UIImage.sortIcon
+        
+        let sortButton = UIButton(configuration: configuration, primaryAction: nil)
+        let menu = createSortMenu()
+        sortButton.menu = menu
+        sortButton.showsMenuAsPrimaryAction = true
+        return sortButton
+    }()
+    
     // MARK: - Properties
     private let viewModel: HomeViewModel
     private var bag = Set<AnyCancellable>()
@@ -127,7 +136,7 @@ final class HomeViewController: UIViewController {
     
     // MARK: - Binding
     private func binding() {
-        viewModel.currenciesSubject
+        viewModel.sortedCurrenciesSubject
             .receive(on: DispatchQueue.main)
             .sink { [weak self] currencies in
                 self?.updateTableView(with: currencies)
@@ -138,6 +147,13 @@ final class HomeViewController: UIViewController {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] isLoading in
                 isLoading ? self?.activityIndicator.startAnimating() : self?.activityIndicator.stopAnimating()
+            }
+            .store(in: &bag)
+        
+        viewModel.selectedSortOption
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] sortOption in
+                self?.sortButton.menu = self?.createSortMenu()
             }
             .store(in: &bag)
         
@@ -157,7 +173,7 @@ final class HomeViewController: UIViewController {
             view.addSubview($0)
         }
         
-        [trendingLabel, tableView, activityIndicator].forEach {
+        [trendingLabel, tableView, activityIndicator, sortButton].forEach {
             grayBackground.addSubview($0)
         }
         
@@ -209,6 +225,12 @@ final class HomeViewController: UIViewController {
         activityIndicator.snp.makeConstraints { make in
             make.center.equalToSuperview()
         }
+        
+        sortButton.snp.makeConstraints { make in
+            make.height.width.equalTo(24.0)
+            make.trailing.equalTo(-25.0)
+            make.top.equalTo(30.0)
+        }
     }
     
     private func createMenu() -> UIMenu {
@@ -227,6 +249,34 @@ final class HomeViewController: UIViewController {
                     image: UIImage(resource: .trash)
                 ) { [weak self] _ in
                     self?.viewModel.logoutUser()
+                }
+            ]
+        )
+        return menu
+    }
+    
+    private func createSortMenu() -> UIMenu {
+        let menu = UIMenu(
+            title: "",
+            options: .displayInline,
+            children: [
+                UIAction(
+                    title: SortOption.none.title,
+                    state: viewModel.selectedSortOption.value == .none ? .on : .off
+                ) { [weak self] _ in
+                    self?.viewModel.sortHotels(by: .none)
+                },
+                UIAction(
+                    title: SortOption.priceIncrease.title,
+                    state: viewModel.selectedSortOption.value == .priceIncrease ? .on : .off
+                ) { [weak self] _ in
+                    self?.viewModel.sortHotels(by: .priceIncrease)
+                },
+                UIAction(
+                    title: SortOption.priceDecrease.title,
+                    state: viewModel.selectedSortOption.value == .priceDecrease ? .on : .off
+                ) { [weak self] _ in
+                    self?.viewModel.sortHotels(by: .priceDecrease)
                 }
             ]
         )

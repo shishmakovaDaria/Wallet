@@ -134,6 +134,13 @@ final class HomeViewController: UIViewController {
             }
             .store(in: &bag)
         
+        viewModel.isLoading
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] isLoading in
+                isLoading ? self?.activityIndicator.startAnimating() : self?.activityIndicator.stopAnimating()
+            }
+            .store(in: &bag)
+        
         viewModel.errorSubject
             .receive(on: DispatchQueue.main)
             .sink { [weak self] errorMessage in

@@ -46,6 +46,10 @@ final class MainCoordinator: BaseCoordinator {
             self?.runLoginScreen()
         }
         
+        homeViewModel.onDetailsScreen = { [weak self] currency in
+            self?.runDetailsScreen(currency)
+        }
+        
         let statisticsViewController = UIViewController.coloredController(.cyan)
         let walletsViewController = UIViewController.coloredController(.purple)
         let reportViewController = UIViewController.coloredController(.gray)
@@ -61,6 +65,17 @@ final class MainCoordinator: BaseCoordinator {
             ]
         )
         router.setRootController(tabbar)
+    }
+    
+    private func runDetailsScreen(_ currency: CryptoCurrency) {
+        let detailsViewModel = DetailsViewModel(currency: currency)
+        let detailsViewController = DetailsViewController(viewModel: detailsViewModel)
+        
+        detailsViewModel.onClose = { [weak self] in
+            self?.router.pop(animated: true)
+        }
+        
+        router.push(detailsViewController)
     }
 }
 

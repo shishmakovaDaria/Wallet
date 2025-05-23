@@ -12,6 +12,7 @@ final class HomeViewModel {
     
     // MARK: - Closures
     var onLoginScreen: (() -> Void)?
+    var onDetailsScreen: ((CryptoCurrency) -> Void)?
     
     // MARK: - Publishers
     let sortedCurrenciesSubject = CurrentValueSubject<[CryptoCurrency], Never>([])
@@ -66,6 +67,11 @@ final class HomeViewModel {
     func logoutUser() {
         UserDefaultsHelper.userIsLoggedIn = false
         onLoginScreen?()
+    }
+    
+    func currencyTapped(at index: Int) {
+        let currency = sortedCurrenciesSubject.value[index]
+        onDetailsScreen?(currency)
     }
     
     func sortHotels(by sortOption: SortOption) {

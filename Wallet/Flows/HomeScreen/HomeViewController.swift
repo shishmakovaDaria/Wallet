@@ -308,6 +308,6 @@ private extension HomeViewController {
 // MARK: - UITableViewDelegate
 extension HomeViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        //todo
+        viewModel.currencyTapped(at: indexPath.row)
     }
 }

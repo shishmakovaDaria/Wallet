@@ -26,6 +26,7 @@ struct LocalizableStrings {
     static let learnMore = NSLocalizedString("learnMore", comment: "Learn more button title")
     static let refresh = NSLocalizedString("refresh", comment: "Refresh menu title")
     static let logout = NSLocalizedString("logout", comment: "Logout menu title")
+    static let trending = NSLocalizedString("trending", comment: "Trending label")
     
     // MARK: - error
     static let unknownError = NSLocalizedString("unknownError", comment: "Unknown error text")

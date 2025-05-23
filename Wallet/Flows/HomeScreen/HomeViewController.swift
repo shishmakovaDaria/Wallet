@@ -90,7 +90,7 @@ final class HomeViewController: UIViewController {
         tableView.delegate = self
         tableView.separatorStyle = .none
         tableView.bounces = true
-        tableView.showsVerticalScrollIndicator = true
+        tableView.showsVerticalScrollIndicator = false
         tableView.register(CurrencyCell.self)
         return tableView
     }()
@@ -251,8 +251,7 @@ private extension HomeViewController {
         snapshot.appendSections([0])
         snapshot.appendItems(currencies)
         
-        let shouldAnimate = dataSource.snapshot().itemIdentifiers.isEmpty == false
-        dataSource.apply(snapshot, animatingDifferences: shouldAnimate)
+        dataSource.apply(snapshot, animatingDifferences: false)
     }
 }
 

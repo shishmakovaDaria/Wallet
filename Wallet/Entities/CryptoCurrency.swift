@@ -15,4 +15,10 @@ struct CryptoCurrency: Codable, Hashable {
     let id: String
     let symbol: String
     let name: String
+    let marketData: MarketData
+}
+
+struct MarketData: Codable, Hashable {
+    let priceUsd: Double?
+    let percentChangeUsdLast24Hours: Double?
 }

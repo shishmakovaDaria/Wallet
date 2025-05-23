@@ -68,6 +68,8 @@ final class DetailsViewController: UIViewController {
         return percentStackView
     }()
     
+    private lazy var timeSliderView = TimeSliderView()
+    
     private lazy var whiteBackground: UIView = {
         let whiteBackground = UIView()
         whiteBackground.backgroundColor = .white.withAlphaComponent(0.8)
@@ -152,13 +154,25 @@ final class DetailsViewController: UIViewController {
                 self?.setupCurrencyData(with: currency)
             }
             .store(in: &bag)
+        
+        viewModel.percentChangeSubject
+            .sink { [weak self] percent in
+                self?.changePercent(percent)
+            }
+            .store(in: &bag)
+        
+        timeSliderView.timeIntervalSelected
+            .sink { [weak self] timeInterval in
+                self?.viewModel.changeTimeInterval(timeInterval)
+            }
+            .store(in: &bag)
     }
     
     // MARK: - Setup UI
     private func setupView() {
         view.backgroundColor = .walletGray
         
-        [nameLabel, backButton, priceLabel, percentStackView, whiteBackground].forEach {
+        [nameLabel, backButton, priceLabel, percentStackView, timeSliderView, whiteBackground].forEach {
             view.addSubview($0)
         }
         
@@ -193,6 +207,12 @@ final class DetailsViewController: UIViewController {
         
         arrowImage.snp.makeConstraints { make in
             make.height.equalTo(5.0)
+        }
+        
+        timeSliderView.snp.makeConstraints { make in
+            make.leading.trailing.equalToSuperview().inset(25.0)
+            make.top.equalTo(percentStackView.snp.bottom).offset(20.0)
+            make.height.equalTo(56.0)
         }
         
         whiteBackground.snp.makeConstraints { make in
@@ -234,5 +254,10 @@ final class DetailsViewController: UIViewController {
         if let suplyString = currency.supply.circulating?.formatted() {
             suplyValueLabel.text = [suplyString, currency.symbol].joined(separator: " ")
         }
+    }
+    
+    private func changePercent(_ percent: Double) {
+        percentLabel.text = "\(abs(percent).formatPercent())"
+        arrowImage.image = percent > 0 ? .arrowUp : .arrowDown
     }
 }

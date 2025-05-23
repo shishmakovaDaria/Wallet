@@ -26,4 +26,11 @@ struct LocalizableStrings {
     static let learnMore = NSLocalizedString("learnMore", comment: "Learn more button title")
     static let refresh = NSLocalizedString("refresh", comment: "Refresh menu title")
     static let logout = NSLocalizedString("logout", comment: "Logout menu title")
+    
+    // MARK: - error
+    static let unknownError = NSLocalizedString("unknownError", comment: "Unknown error text")
+    static let failedProcessData = NSLocalizedString("failedProcessData", comment: "Failed process data error text")
+    static let networkError = NSLocalizedString("networkError", comment: "Network error text")
+    static let requestError = NSLocalizedString("requestError", comment: "Request error text")
+    static let serverError = NSLocalizedString("serverError", comment: "Server error text")
 }

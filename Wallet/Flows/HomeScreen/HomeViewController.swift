@@ -82,6 +82,7 @@ final class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
+        viewModel.fetchCurrencies()
     }
     
     // MARK: - Setup UI

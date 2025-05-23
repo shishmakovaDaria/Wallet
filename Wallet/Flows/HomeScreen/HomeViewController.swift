@@ -220,7 +220,7 @@ final class HomeViewController: UIViewController {
                     title: LocalizableStrings.refresh,
                     image: UIImage(resource: .rocket)
                 ) { [weak self] _ in
-                    //todo
+                    self?.viewModel.fetchCurrencies()
                 },
                 UIAction(
                     title: LocalizableStrings.logout,

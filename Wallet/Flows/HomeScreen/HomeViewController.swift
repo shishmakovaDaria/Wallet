@@ -68,6 +68,7 @@ final class HomeViewController: UIViewController {
     
     // MARK: - Properties
     private let viewModel: HomeViewModel
+    private var bag = Set<AnyCancellable>()
     
     // MARK: - Life Cycle
     init(viewModel: HomeViewModel) {
@@ -82,7 +83,18 @@ final class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
+        binding()
         viewModel.fetchCurrencies()
+    }
+    
+    // MARK: - Binding
+    private func binding() {
+        viewModel.errorSubject
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] errorMessage in
+                self?.showNetworkAlert(title: LocalizableStrings.error, with: errorMessage)
+            }
+            .store(in: &bag)
     }
     
     // MARK: - Setup UI

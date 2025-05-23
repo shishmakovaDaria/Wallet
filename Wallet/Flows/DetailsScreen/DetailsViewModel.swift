@@ -6,15 +6,18 @@
 //
 
 import Foundation
+import Combine
 
 final class DetailsViewModel {
     
     // MARK: - Closures
     var onClose: (() -> Void)?
     
+    // MARK: - Publishers
+    let currencySubject: CurrentValueSubject<CryptoCurrency, Never>
+    
     // MARK: - Life Cycle
     init(currency: CryptoCurrency) {
-        print("DetailsViewModel init")
-        print(currency)
+        self.currencySubject = CurrentValueSubject<CryptoCurrency, Never>(currency)
     }
 }

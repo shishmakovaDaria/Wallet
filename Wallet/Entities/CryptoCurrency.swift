@@ -16,9 +16,19 @@ struct CryptoCurrency: Codable, Hashable {
     let symbol: String
     let name: String
     let marketData: MarketData
+    let marketcap: MarketcapData
+    let supply: SupplyData
 }
 
 struct MarketData: Codable, Hashable {
     let priceUsd: Double?
     let percentChangeUsdLast24Hours: Double?
+}
+
+struct MarketcapData: Codable, Hashable {
+    let currentMarketcapUsd: Double?
+}
+
+struct SupplyData: Codable, Hashable {
+    let circulating: Double?
 }

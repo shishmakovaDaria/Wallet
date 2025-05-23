@@ -37,4 +37,9 @@ struct LocalizableStrings {
     static let networkError = NSLocalizedString("networkError", comment: "Network error text")
     static let requestError = NSLocalizedString("requestError", comment: "Request error text")
     static let serverError = NSLocalizedString("serverError", comment: "Server error text")
+    
+    // MARK: - details screen
+    static let marketStatistic = NSLocalizedString("marketStatistic", comment: "Market statistic label")
+    static let marketCapitalization = NSLocalizedString("marketCapitalization", comment: "Market capitalization label")
+    static let circulatingSuply = NSLocalizedString("circulatingSuply", comment: "Circulating supply label")
 }

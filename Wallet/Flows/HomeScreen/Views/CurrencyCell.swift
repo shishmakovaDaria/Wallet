@@ -113,7 +113,7 @@ final class CurrencyCell: UITableViewCell, ReuseIdentifying {
         icon.image = UIImage(named: currency.symbol)
         nameLabel.text = currency.name
         symbolLabel.text = currency.symbol
-        priceLabel.text = currency.marketData.priceUsd?.formatedCurrency()
+        priceLabel.text = currency.marketData.priceUsd?.formattedCurrency()
         percentLabel.text = "\(abs(currency.marketData.percentChangeUsdLast24Hours ?? 0).formatPercent())"
         arrowImage.image = currency.marketData.percentChangeUsdLast24Hours ?? 0 > 0 ? .arrowUp : .arrowDown
     }
